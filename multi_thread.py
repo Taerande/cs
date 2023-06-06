@@ -12,7 +12,7 @@ def increment():
     global count
     while count < 3000000:
         with lock:
-        count += 1
+            count += 1
     print(f"Thread ID: {threading.get_ident()}, Process ID: {os.getpid()}")
 
 # 총 소요 시간 측정을 위한 시작 시간 기록
