@@ -12,7 +12,7 @@ def increment():
     while count.value < 3000000:
         with lock:
             count.value += 1
-    print(f"프로세스 ID: {os.getpid()}")
+    print(f"Process ID: {os.getpid()}")
 
 # 총 소요 시간 측정을 위한 시작 시간 기록
 start_time = time.time()
@@ -29,5 +29,5 @@ for process in processes:
     process.join()
 
 # 결과 출력
-print("Count:", count)
+print("Count:", count.value)
 print("Total Elapsed Time:", time.time() - start_time)
