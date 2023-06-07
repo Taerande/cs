@@ -26,7 +26,7 @@ start_time = time.time()
 
 # 5개의 스레드 생성 및 실행
 threads = []
-for _ in range(5):
+for _ in range(num_thread):
     thread = threading.Thread(target=increment, args=(lock,))
     thread.start()
     threads.append(thread)
