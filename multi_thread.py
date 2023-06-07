@@ -37,5 +37,4 @@ for thread in threads:
 
 # 결과 출력
 print("Count:", count)
-print("Range:", for_range)
 print("Total Elapsed Time:", time.time() - start_time)
