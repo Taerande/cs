@@ -15,7 +15,7 @@ def increment(lock):
     global count
     for _ in range(for_range):
         lock.acquire()
-        if count < max_count:
+        if count.value < max_count:
             count.value += 1
         lock.release()
     print(f"Process ID: {os.getpid()}")
