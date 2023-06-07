@@ -1,35 +1,35 @@
 import os
 import time
-import threading
+from multiprocessing import Process, Value, Lock
 
+count = Value('i', 0)  # 공유 변수 초기화
+lock = Lock()  # 프로세스 동기화를 위한 Lock 객체
 
-count = 0  # 전역 변수 초기화
-lock = threading.Lock()  # 스레드 동기화를 위한 Lock 객체
-
-print('------Multi Thread-----')
+print('-------Multi Process------')
 
 def increment(lock):
-    # lock.acquire()
     global count
     for _ in range(100000):
-        count += 1
-    # lock.release()
-    print(f"Thread ID: {threading.get_ident()}, Process ID: {os.getpid()}")
+        # lock.acquire()
+        count.value += 1
+        # lock.release()
+    print(f"Process ID: {os.getpid()}")
+
 
 # 총 소요 시간 측정을 위한 시작 시간 기록
 start_time = time.time()
 
-# 5개의 스레드 생성 및 실행
-threads = []
-for _ in range(5):
-    thread = threading.Thread(target=increment, args=(lock,))
-    thread.start()
-    threads.append(thread)
+# 3개의 프로세스 생성 및 실행
+processes = []
+for _ in range(3):
+    process = Process(target=increment, args=(lock,))
+    process.start()
+    processes.append(process)
 
-# 모든 스레드의 실행 종료를 대기
-for thread in threads:
-    thread.join()
+# 모든 프로세스의 실행 종료를 대기
+for process in processes:
+    process.join()
 
 # 결과 출력
-print("Count:", count)
+print("Count:", count.value)
 print("Total Elapsed Time:", time.time() - start_time)
