@@ -9,11 +9,11 @@ lock = threading.Lock()  # 스레드 동기화를 위한 Lock 객체
 print('------Multi Thread-----')
 
 def increment(lock):
-    lock.acquire()
     global count
-    while count < 3000000:
+    while count < 3000000:\
+        lock.acquire()
         count += 1
-    lock.release()
+        lock.release()
     print(f"Thread ID: {threading.get_ident()}, Process ID: {os.getpid()}")
 
 # 총 소요 시간 측정을 위한 시작 시간 기록
