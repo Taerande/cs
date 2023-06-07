@@ -26,7 +26,7 @@ start_time = time.time()
 
 # 3개의 프로세스 생성 및 실행
 processes = []
-for _ in range(3):
+for _ in range(num_process):
     process = Process(target=increment, args=(lock,))
     process.start()
     processes.append(process)
