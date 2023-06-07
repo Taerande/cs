@@ -3,6 +3,7 @@ import time
 from multiprocessing import Process, Value, Lock
 
 count = Value('i', 0)  # 공유 변수 초기화
+lock = Lock()  # 프로세스 동기화를 위한 Lock 객체
 
 print('-------Multi Process------')
 
@@ -21,7 +22,6 @@ start_time = time.time()
 # 3개의 프로세스 생성 및 실행
 processes = []
 for _ in range(3):
-    lock = Lock()  # 프로세스 동기화를 위한 Lock 객체
     process = Process(target=increment, args=(lock,))
     process.start()
     processes.append(process)

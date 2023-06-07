@@ -4,6 +4,7 @@ import threading
 
 
 count = 0  # 전역 변수 초기화
+lock = threading.Lock()  # 스레드 동기화를 위한 Lock 객체
 
 print('------Multi Thread-----')
 
@@ -21,7 +22,6 @@ start_time = time.time()
 # 5개의 스레드 생성 및 실행
 threads = []
 for _ in range(5):
-    lock = threading.Lock()  # 스레드 동기화를 위한 Lock 객체
     thread = threading.Thread(target=increment, args=(lock,))
     thread.start()
     threads.append(thread)
