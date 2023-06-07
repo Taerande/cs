@@ -1,19 +1,24 @@
 import os
 import time
 import threading
+import math
 
 
 count = 0  # 전역 변수 초기화
 lock = threading.Lock()  # 스레드 동기화를 위한 Lock 객체
+max_count = 3000000
+num_thread = 4
+for_range = math.ceil(max_count / num_thread)
 
 print('------Multi Thread-----')
 
 def increment(lock):
     global count
-    while count < 3000000:\
-        lock.acquire()
+    for _ in range(for_range):
+      lock.acquire()
+      if count < max_count:
         count += 1
-        lock.release()
+      lock.release()
     print(f"Thread ID: {threading.get_ident()}, Process ID: {os.getpid()}")
 
 # 총 소요 시간 측정을 위한 시작 시간 기록
@@ -32,4 +37,5 @@ for thread in threads:
 
 # 결과 출력
 print("Count:", count)
+print("Range:", for_range)
 print("Total Elapsed Time:", time.time() - start_time)
