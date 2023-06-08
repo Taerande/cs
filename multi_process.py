@@ -6,7 +6,7 @@ from multiprocessing import Process, Value, Lock
 count = Value('i', 0)  # 공유 변수 초기화
 lock = Lock()  # 프로세스 동기화를 위한 Lock 객체
 max_count = 3000000
-num_process = 4
+num_process = 2
 for_range = ceil(max_count/num_process)
 
 print('-------Multi Process------')
@@ -16,7 +16,8 @@ def increment(lock):
     for _ in range(for_range):
         lock.acquire()
         if count.value < max_count:
-            count.value += 1
+          count.value += 1
+          # print(f"Process ID: {os.getpid()}, CPU: {os.sched_getaffinity(0)}, Count: {count.value}")
         lock.release()
     print(f"Process ID: {os.getpid()}")
 
